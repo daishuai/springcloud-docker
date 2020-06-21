@@ -7,7 +7,7 @@ VOLUME /tmp
 # COPY ./target/*.jar demo.jar
 # 启动jar
 RUN sh -c 'touch demo.jar'
-ADD *.jar demo.jar
+ADD springboot-demo-*.jar demo.jar
 ENV JAVA_OPTS=""
 #暴露容器端口
 EXPOSE 8989

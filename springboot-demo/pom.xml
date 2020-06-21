@@ -11,6 +11,14 @@
 
     <artifactId>springboot-demo</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.daishuai</groupId>
+            <artifactId>springboot-base</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <!--使用docker-maven-plugin插件-->

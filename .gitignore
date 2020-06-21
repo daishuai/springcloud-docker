@@ -9,5 +9,6 @@
 /sonarlint/*
 /compiler.xml
 *.class
-/springboot-demo/target/*
+/*/target/*
 /springcloud-docker.iml
+/gitignore
