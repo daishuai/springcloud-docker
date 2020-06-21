@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>springcloud-docker</artifactId>
+        <groupId>com.daishuai</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>springboot-demo</artifactId>
+
+    <build>
+        <plugins>
+            <!--使用docker-maven-plugin插件-->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <!--将插件绑定在某个phase执行-->
+                <executions>
+                    <execution>
+                        <id>build-image</id>
+                        <!--将插件绑定在package这个phase上，当执行mvn package，就会自动执行mvn docker:build-->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!--指定生成的镜像名 springboot-demo-->
+                    <imageName>${project.artifactId}</imageName>
+                    <!--指定标签-->
+                    <imageTags>
+                        <!--默认会生成一个latest-->
+                        <imageTag>${project.version}</imageTag>
+                    </imageTags>
+                    <!--指定Dockerfile路径 springboot-demo/src/main/docker-->
+                    <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                    <!--指定远程docker api地址-->
+                    <dockerHost>http://192.168.159.132:2375</dockerHost>
+                    <!--这里是复制jar包到docker容器指定目录配置-->
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <!--jar包所在的路径，即对应target目录 ${project.basedir}/target-->
+                            <directory>${project.build.directory}</directory>
+                            <!--需要包含的jar包，对应Dockerfile中添加的文件名 ${project.artifactId}-${project.artifactId}-->
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
