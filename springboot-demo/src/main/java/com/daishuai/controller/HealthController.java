@@ -23,6 +23,7 @@ public class HealthController {
 
     @GetMapping
     public ResponseEntity<String> success() {
+
         ResponseEntity<String> success = ResponseEntity.success("200");
         try {
             log.info("health check: {}", objectMapper.writeValueAsString(success));
